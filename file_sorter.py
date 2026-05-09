@@ -7,16 +7,16 @@ import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 
 CATEGORIES = [
-    ("📷 图片", ['.jpg','.jpeg','.png','.gif','.bmp','.webp','.svg','.ico','.tiff']),
-    ("📝 Word", ['.doc','.docx']),
-    ("📊 Excel", ['.xls','.xlsx','.csv']),
-    ("📽️ PPT", ['.ppt','.pptx']),
-    ("📄 PDF", ['.pdf']),
-    ("📄 文本", ['.txt','.md']),
-    ("🎬 视频", ['.mp4','.avi','.mkv','.mov','.wmv','.flv','.webm']),
-    ("🎵 音乐", ['.mp3','.wav','.flac','.aac','.ogg','.wma']),
-    ("📦 压缩包", ['.zip','.rar','.7z','.tar','.gz']),
-    ("💻 程序", ['.exe','.msi','.apk']),
+    ("图片", ['.jpg','.jpeg','.png','.gif','.bmp','.webp','.svg','.ico','.tiff']),
+    ("Word", ['.doc','.docx']),
+    ("Excel", ['.xls','.xlsx','.csv']),
+    ("PPT", ['.ppt','.pptx']),
+    ("PDF", ['.pdf']),
+    ("文本", ['.txt','.md']),
+    ("视频", ['.mp4','.avi','.mkv','.mov','.wmv','.flv','.webm']),
+    ("音乐", ['.mp3','.wav','.flac','.aac','.ogg','.wma']),
+    ("压缩包", ['.zip','.rar','.7z','.tar','.gz']),
+    ("程序", ['.exe','.msi','.apk']),
 ]
 
 def organize(folder, names, log):
@@ -26,10 +26,10 @@ def organize(folder, names, log):
     n = 0
     for f in files:
         ext = os.path.splitext(f)[1].lower()
-        for display, _ in names:
+        for display, folder_name in names:
             exts = [e for c, e in CATEGORIES if c == display][0]
             if ext not in exts: continue
-            target = os.path.join(folder, display)
+            target = os.path.join(folder, folder_name)
             os.makedirs(target, exist_ok=True)
             dst = os.path.join(target, f)
             if os.path.exists(dst):
@@ -37,7 +37,7 @@ def organize(folder, names, log):
                 dst = os.path.join(target, f"{name}_副本{e}")
             shutil.move(os.path.join(folder, f), dst)
             n += 1
-            log(f"  ✅ {f} → {display}")
+            log(f"  ✅ {f} → {folder_name}")
             break
     log(f"\n📊 共整理 {n} 个文件")
     return n
@@ -63,7 +63,7 @@ class ConfigWin:
         self.result = None
         self.win = tb.Toplevel(parent)
         self.win.title("设置分类名称")
-        self.win.geometry("500x450")
+        self.win.geometry("550x620")
         self.win.resizable(False, False)
         tb.Label(self.win, text="自定义每个分类的文件夹名称", font=("Microsoft YaHei", 12, "bold")).pack(pady=10)
         tb.Label(self.win, text="不改则使用默认名称", font=("Microsoft YaHei", 9), bootstyle="secondary").pack()
@@ -174,13 +174,18 @@ class App:
         tb.Button(lf, text="⚙️ 自定义分类名称", command=self.cfgs, bootstyle="info-outline", width=25).pack(pady=5)
         tb.Button(lf, text="🚀 开始整理", command=self.org, bootstyle="success", width=25, padding=8).pack(pady=10)
 
-        right = tb.LabelFrame(ff, text="✏️ ③ 批量重命名"); right.pack(side=RIGHT, fill=BOTH, expand=True, padx=5)
-        rf = tb.Frame(right); rf.pack(fill=BOTH, expand=True, padx=10, pady=10)
-        tb.Label(rf, text="整理完后自动弹窗让您选择", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W, pady=5)
-        tb.Label(rf, text="也可以手动点击下方按钮：", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W)
-        tb.Button(rf, text="✏️ 开始重命名", command=self.rn_btn, bootstyle="warning", width=25, padding=8).pack(pady=10)
+        right = tb.LabelFrame(ff, text="使用说明")
+        right.pack(side=RIGHT, fill=BOTH, expand=True, padx=5)
+        rf = tb.Frame(right)
+        rf.pack(fill=BOTH, expand=True, padx=10, pady=10)
+        tb.Label(rf, text="操作步骤：", font=("Microsoft YaHei", 10, "bold")).pack(anchor=W, pady=5)
+        tb.Label(rf, text="1. 选择要整理的文件夹", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W, pady=2)
+        tb.Label(rf, text="2. 自定义分类名称(可选)", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W, pady=2)
+        tb.Label(rf, text="3. 点击开始整理", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W, pady=2)
+        tb.Label(rf, text="4. 完成！", font=("Microsoft YaHei", 9), bootstyle="secondary").pack(anchor=W, pady=2)
 
-        lf2 = tb.LabelFrame(self.root, text="📋 执行日志"); lf2.pack(fill=BOTH, expand=True, padx=20, pady=5)
+        # 日志
+        lf2 = tb.LabelFrame(self.root, text="执行日志"); lf2.pack(fill=BOTH, expand=True, padx=20, pady=5)
         lf3 = tb.Frame(lf2); lf3.pack(fill=BOTH, expand=True, padx=10, pady=10)
         self.tx = tk.Text(lf3, height=8, font=("Consolas", 9), bg="#1a1a2e", fg="#e0e0e0", relief="flat", padx=10, pady=10)
         self.tx.pack(side=LEFT, fill=BOTH, expand=True)
