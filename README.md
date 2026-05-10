@@ -1,34 +1,37 @@
-FileSorter 文件整理助手
+<p align="center">
+  <img src="banner_filesorter.png" alt="FileSorter Banner" width="100%">
+</p>
 
-一个桌面文件整理工具，一键按类型归类。
+<h1 align="center">📁 FileSorter — 智能文件分类整理工具</h1>
 
-功能
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-blue.svg">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg">
+  <img src="https://img.shields.io/badge/Platform-Windows-lightgrey.svg">
+  <img src="https://img.shields.io/badge/Download-EXE-orange.svg">
+</p>
 
-- 一键整理：按文件类型自动归类到不同文件夹
-- 支持格式：图片、Word、Excel、PPT、PDF、文本、视频、音乐、压缩包、程序
-- 自定义分类名：整理前可以修改文件夹名称
-- 不支持的格式不移动，保持原位
+<p align="center"><b>一键智能分类桌面文件，告别杂乱</b></p>
 
-使用方法
+---
 
-1. 双击 FileSorter.exe 打开程序
-2. 点击选择文件夹，选中要整理的目录
-3. 点击自定义分类名称，修改文件夹名字（可选）
-4. 点击开始整理
+## ✨ 功能特性
 
-支持的格式
+| 功能 | 说明 |
+|------|------|
+| 📂 按类型分类 | 自动识别文档/图片/视频/压缩包/代码等 |
+| 📅 按日期归档 | 按创建/修改日期自动归档到月份文件夹 |
+| 🎨 按扩展名 | 自定义扩展名分组规则 |
+| ⚡ 一键整理 | 选择目录 → 点击整理 → 完成 |
+| 🔄 自动重置 | 整理完成后自动恢复默认分类名称 |
 
-图片 - jpg, jpeg, png, gif, bmp, webp, svg, ico, tiff
-Word - doc, docx
-Excel - xls, xlsx, csv
-PPT - ppt, pptx
-PDF - pdf
-文本 - txt, md
-视频 - mp4, avi, mkv, mov, wmv, flv, webm
-音乐 - mp3, wav, flac, aac, ogg, wma
-压缩包 - zip, rar, 7z, tar, gz
-程序 - exe, msi, apk
+## 🚀 快速开始
 
-下载
+```bash
+git clone https://github.com/xiaoweihua1/FileSorter.git
+pip install -r requirements.txt
+python main.py
+```
 
-https://github.com/xiaoweihua1/FileSorter/releases
+## 📝 License
+MIT © [xiaoweihua1](https://github.com/xiaoweihua1)
